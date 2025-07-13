@@ -9,6 +9,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  font-family: "Orbitron";
 }
 
 @keyframes back {
@@ -30,11 +31,13 @@ body {
   align-items: center;
   perspective: 200px;
   perspective-origin: center;
+  position: relative;
+  z-index: 1;
   /* transform-style: preserve-3d; */
 }
 .grid {
   display: grid;
-  width: 25%;
+  width: 20%;
   height: 68%;
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 50px rgba(255, 0, 128, 0.5),
@@ -42,18 +45,188 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.199);
   border-radius: 18px;
   animation: floating 4s linear infinite alternate both;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  grid-auto-rows: 80px;
+  padding: 20px;
+
   /* perspective: 10px;
   perspective-origin: center left; */
-  /* transform-style: preserve-3d; */
+  transform-style: preserve-3d;
+}
+.grid div {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  transition: 0.3s transform linear;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center; /* Centers text vertically */
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.grid div:hover {
+  transform: translateY(-8px) scale(1.02);
+  cursor: pointer;
+}
+.gird div:active {
+  animation: click 0.2s linear forwards;
+}
+.grid div::before {
+  content: "";
+  position: absolute;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.438),
+    transparent
+  );
+
+  transition: 0.3s left ease-in-out;
+  pointer-events: none;
+  top: 0;
+}
+.grid div:hover:before {
+  left: 100%;
+}
+@keyframes click {
+  0% {
+    transform: scale(1) translateY(-8px);
+  }
+  50% {
+    transform: scale(1.03) translateY(2px);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+  }
 }
 @keyframes floating {
   0% {
-    transform: translateY(0) translateZ(0);
+    transform: translateY(0) translateZ(0) rotateY(-0.2deg);
   }
   50% {
-    transform: translateY(-10px) translateZ(5px);
+    transform: translateY(-10px) translateZ(5px) rotateY(-0.5deg);
   }
   100% {
-    transform: translateY(0) translateZ(0);
+    transform: translateY(0) translateZ(0) rotateY(-0.2deg);
+  }
+}
+.small {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: white;
+  animation: ttl3 linear infinite alternate;
+  box-shadow: 0px 0px 15px black;
+}
+@keyframes ttl3 {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-25px) rotate(0deg);
+    opacity: 1;
+  }
+}
+#display {
+  grid-column: 1 / 5;
+  animation: display 20s infinite;
+  pointer-events: none;
+  color: #00ff41;
+  justify-content: right;
+  align-items: center;
+  padding: 10px;
+}
+#big {
+  display: contents;
+  grid-row: 3/7;
+  grid-column: 1/4;
+}
+#moins {
+  grid-row: 3/4;
+  grid-column: 4/5;
+}
+#plus {
+  grid-row: 4/5;
+  grid-column: 4/5;
+}
+#equal {
+  grid-row: 5/6;
+  grid-column: 4/5;
+  color: #2d2d2d !important;
+}
+#zero {
+  grid-column: 1/3;
+}
+.numbers {
+  border: 3px solid rgba(128, 128, 128, 0.425);
+  color: #00ff41;
+  background: linear-gradient(145deg, #4a4a4a, #2d2d2d);
+  text-align: center;
+
+  text-shadow: 0 0 20px #00ff41;
+  font-size: 2rem;
+  transition: 0.3s border-color linear;
+}
+.numbers:hover {
+  border: 3px solid #00ff41 !important;
+}
+
+#cc {
+  background-color: rgb(207, 31, 31);
+  color: white;
+  text-shadow: 0 0 10px white;
+  border: 3px solid rgba(128, 128, 128, 0.425);
+}
+#cc:hover {
+  border: 3px solid red;
+}
+.calcu {
+  background: linear-gradient(145deg, #ff0080, #7928ca);
+  color: white;
+  text-shadow: 0 0 10px white;
+  border: 3px solid rgba(128, 128, 128, 0.425);
+}
+.calcu:hover {
+  border: 3px solid red;
+}
+#equal {
+  background-color: #00ff41;
+  color: white;
+}
+#equal:hover {
+  border: 3px solid #ff0080;
+}
+@keyframes display {
+  0% {
+    box-shadow: 0 0 5px 00ff41;
+    border: 3px solid yellow;
+  }
+  20% {
+    box-shadow: 0 0 25px 00ff41;
+    border: 3px solid rgb(0, 255, 64);
+  }
+  40% {
+    box-shadow: 0 0 5px 00ff41;
+    border: 3px solid rgb(47, 0, 255);
+  }
+  60% {
+    box-shadow: 0 0 25px 00ff41;
+    border: 3px solid rgb(255, 0, 179);
+  }
+  80% {
+    box-shadow: 0 0 5px 00ff41;
+    border: 3px solid rgb(195, 0, 255);
+  }
+  100% {
+    box-shadow: 0 0 25px 00ff41;
+    border: 3px solid rgb(0, 255, 200);
   }
 }
