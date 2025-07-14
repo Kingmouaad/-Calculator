@@ -10,7 +10,8 @@ function small() {
     body.appendChild(small);
   }
 }
-const dispay = document.querySelector("#display");
+let dispay = document.querySelector("#display");
+dispay.value = Number(0);
 
 window.addEventListener("load", small);
 const buttons = document.querySelectorAll(".grid div");
@@ -29,9 +30,65 @@ buttons.forEach((button) => {
 //   }
 // });
 const numbers = document.querySelectorAll(".numbers");
-
+dispay.textContent = "";
 numbers.forEach((number) => {
   number.addEventListener("click", () => {
-    dispay.textContent = Number(number.textContent);
+    const deleteall = document.querySelector("#cc");
+    deleteall.addEventListener("click", () => {
+      dispay.textContent = "0";
+    });
+    if (dispay.textContent === "0") {
+      dispay.textContent = number.textContent;
+    } else {
+      dispay.textContent += number.textContent;
+    }
   });
+});
+// const deleteall = document.querySelector("#cc");
+// deleteall.addEventListener("click", () => {
+//   dispay.textContent = "0";
+// });
+const operation = document.querySelectorAll(".calcu");
+let first;
+let second;
+let operationn;
+let all = ["plus", "moins", "div", "plus"];
+const equal = document.querySelector("#equal");
+operation.forEach((opera) => {
+  opera.addEventListener("click", (e) => {
+    // operationn = e.target.textContent;
+    if (e.target.id === "plus") {
+      dispay.textContent += "+";
+    } else if (e.target.id === "moins") {
+      dispay.textContent += "-";
+    } else if (e.target.id === "mul") {
+      dispay.textContent += "*";
+    } else if (e.target.id === "div") {
+      dispay.textContent += "/";
+    }
+    operationn = e.target.textContent;
+    first = dispay.textContent;
+  });
+});
+equal.addEventListener("click", () => {
+  first = first.slice(0, -1);
+  second = dispay.textContent.slice(first.length + 1);
+  first = Number(first);
+  second = Number(second);
+  operationn = operationn;
+  if (operationn == "+") {
+    result = first + second;
+  } else if (operationn == "-") {
+    result = first - second;
+  } else if (operationn == "X") {
+    result = first * second;
+  } else if (operationn == "/") {
+    result = first / second;
+  }
+
+  dispay.textContent = result;
+});
+const deletee = document.querySelector("#tmhi");
+deletee.addEventListener("click", () => {
+  dispay.textContent = dispay.textContent.slice(0, -1);
 });
